@@ -1,0 +1,98 @@
+{
+  "intern_keywords": [
+    "intern",
+    "interns",
+    "internship",
+    "co-op",
+    "coop",
+    "summer associate",
+    "summer student"
+  ],
+  "software_keywords": [
+    "software",
+    "backend",
+    "back-end",
+    "frontend",
+    "front-end",
+    "full-stack",
+    "full stack",
+    "platform engineer",
+    "infrastructure engineer",
+    "systems engineer",
+    "mobile engineer",
+    "ios",
+    "android",
+    "forward deployed engineer",
+    "forward-deployed engineer",
+    "forward deployed engineering",
+    "forward-deployed engineering",
+    "machine learning engineer",
+    "ML engineer"
+  ],
+  "family_keywords": {
+    "hardware": [
+      "hardware",
+      "electrical",
+      "mechanical",
+      "firmware",
+      "silicon",
+      "robotics"
+    ],
+    "analytics": [
+      "analytics",
+      "data analyst",
+      "data analytics"
+    ],
+    "data_science": [
+      "data science",
+      "data scientist"
+    ],
+    "security_analyst": [
+      "security analyst"
+    ],
+    "solutions": [
+      "sales engineer",
+      "solutions engineer",
+      "solution engineer"
+    ],
+    "ml_research": [
+      "machine learning research",
+      "ML research",
+      "machine learning intern",
+      "ML intern"
+    ]
+  },
+  "exclude_keywords": [
+    "senior",
+    "staff",
+    "manager",
+    "principal",
+    "director"
+  ],
+  "restriction_patterns": [
+    [
+      "says no visa sponsorship",
+      "\\b(?:no (?:visa )?sponsorship|(?:do(?:es)? not|not (?:currently )?able to|unable to|cannot|can\\x27t|will not|won\\x27t) (?:\\w+ ){0,4}(?:sponsor\\b|sponsorship\\b)|(?:visa )?sponsorship (?:is |will be )?not (?:available|offered|provided)|without (?:\\w+ ){0,3}sponsorship)"
+    ],
+    [
+      "US citizenship required",
+      "\\b(?:u\\.?s\\.?|united states) (?:citizen(?:s|ship)?)(?: (?:is |are )?(?:required|only)| required)|\\bmust be (?:a )?(?:u\\.?s\\.?|united states) citizen"
+    ],
+    [
+      "export-control/US-person language",
+      "\\b(?:export[ -]control|export license|u\\.?s\\.?[ -]person)\\b"
+    ],
+    [
+      "clearance mentioned",
+      "\\b(?:security clearance|clearance|ts/sci)\\b"
+    ],
+    [
+      "says sponsorship available",
+      "\\b(?:(?:visa |h-?1b )?sponsorship (?:is )?(?:available|provided|offered)|(?:we |company )?(?:offer|provide|support) (?:visa |h-?1b )?sponsorship|we sponsor h-?1b)\\b"
+    ],
+    [
+      "mentions CPT/OPT/F-1 welcome",
+      "\\b(?:cpt|opt|f-?1)(?:.{0,100})(?:welcome|supported|accepted|eligible)|\\b(?:welcome|support|accept|eligible)(?:.{0,100})(?:cpt|opt|f-?1)\\b"
+    ]
+  ]
+}

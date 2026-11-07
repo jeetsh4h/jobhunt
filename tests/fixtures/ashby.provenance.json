@@ -1,0 +1,9 @@
+{
+  "name": "OpenAI",
+  "source": "ashby",
+  "token": "openai",
+  "checked_at": "2026-11-06T18:38:08.440266+00:00",
+  "http_status": 200,
+  "jobs": 819,
+  "url": "https://api.ashbyhq.com/posting-api/job-board/openai"
+}

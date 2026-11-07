@@ -1,0 +1,15 @@
+{
+  "paused": false,
+  "database": "data/jobhunt.sqlite3",
+  "preferred_locations": [],
+  "weekly_application_target": 15,
+  "resume_variants": {
+    "software_internship": "software-engineer"
+  },
+  "resume_pdfs": {
+    "software-engineer": "resume/software-engineer.pdf"
+  },
+  "request_timeout_seconds": 25,
+  "request_attempts": 3,
+  "per_host_interval_seconds": 1.1
+}

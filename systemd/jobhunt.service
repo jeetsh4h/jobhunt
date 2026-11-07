@@ -1,0 +1,17 @@
+[Unit]
+# scripts/install-timer replaces @JOBHUNT_ROOT@ with this checkout's path.
+Description=Fresh internship watch: ingest, capped enrichment, queue and digest
+
+[Service]
+Type=oneshot
+WorkingDirectory=@JOBHUNT_ROOT@
+Environment=PYTHONDONTWRITEBYTECODE=1
+ExecStart=@JOBHUNT_ROOT@/scripts/fresh-watch
+TimeoutStartSec=20min
+UMask=0077
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ReadWritePaths=@JOBHUNT_ROOT@
+ProtectHome=read-only
+RestrictAddressFamilies=AF_INET AF_INET6 AF_UNIX

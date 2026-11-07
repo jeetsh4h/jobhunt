@@ -1,0 +1,105 @@
+[
+ {
+  "source": "Simplify",
+  "category": "Software",
+  "company_name": "Acme Corp",
+  "id": "s-1",
+  "title": "Software Engineer Intern",
+  "active": true,
+  "terms": [
+   "Summer 2027",
+   "Fall 2027"
+  ],
+  "date_updated": 1793979008,
+  "date_posted": 1793923200,
+  "url": "https://jobs.acme.invalid/roles/1?utm_source=Simplify&ref=Simplify",
+  "locations": [
+   "New York, NY",
+   "Remote in USA"
+  ],
+  "is_visible": true,
+  "sponsorship": "Does Not Offer Sponsorship",
+  "degrees": []
+ },
+ {
+  "source": "Simplify",
+  "category": "Software",
+  "company_name": "Globex",
+  "id": "s-2",
+  "title": "Backend Engineer Intern",
+  "active": true,
+  "terms": [
+   "Spring 2027"
+  ],
+  "date_updated": 1793979008,
+  "date_posted": 1e+99,
+  "url": "https://jobs.globex.invalid/2",
+  "locations": [
+   "Austin, TX"
+  ],
+  "is_visible": true,
+  "sponsorship": "Other",
+  "degrees": []
+ },
+ {
+  "source": "Simplify",
+  "category": "Software",
+  "company_name": "Initech",
+  "id": "s-3",
+  "title": "Software Engineer Intern",
+  "active": false,
+  "terms": [
+   "Summer 2027"
+  ],
+  "date_updated": 1793979008,
+  "date_posted": 1793923200,
+  "url": "https://jobs.initech.invalid/3",
+  "locations": [
+   "Boston, MA"
+  ],
+  "is_visible": true,
+  "sponsorship": "Other",
+  "degrees": []
+ },
+ {
+  "source": "Simplify",
+  "category": "Software",
+  "company_name": "Example",
+  "id": "s-4",
+  "title": "Software Engineering Intern, Summer 2027",
+  "active": true,
+  "terms": [
+   "Summer 2027"
+  ],
+  "date_updated": 1793979008,
+  "date_posted": 1793923200,
+  "url": "https://other.invalid/example-dup",
+  "locations": [
+   "New York, NY"
+  ],
+  "is_visible": true,
+  "sponsorship": "Other",
+  "degrees": []
+ },
+ {
+  "source": "Simplify",
+  "category": "Software",
+  "company_name": "Hooli",
+  "id": "s-5",
+  "title": "Platform Software Intern",
+  "active": true,
+  "terms": [
+   "Summer 2027"
+  ],
+  "date_updated": 1793979008,
+  "date_posted": 1793923200,
+  "url": "https://example.invalid/jobs/1/",
+  "locations": [
+   "Palo Alto, CA"
+  ],
+  "is_visible": true,
+  "sponsorship": "Other",
+  "degrees": []
+ },
+ "garbage"
+]

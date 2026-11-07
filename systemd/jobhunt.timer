@@ -1,0 +1,12 @@
+[Unit]
+Description=Daily fresh internship watch at 09:00 local
+
+[Timer]
+OnCalendar=*-*-* 09:00:00
+RandomizedDelaySec=0
+Persistent=true
+AccuracySec=1s
+Unit=jobhunt.service
+
+[Install]
+WantedBy=timers.target

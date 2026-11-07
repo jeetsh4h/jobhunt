@@ -1,0 +1,12 @@
+.venv/
+__pycache__/
+.pytest_cache/
+*.pyc
+data/
+*.csv
+answers.yaml
+packs/
+digest.md
+config.yaml
+resume/
+verification.json

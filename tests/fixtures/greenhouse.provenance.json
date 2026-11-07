@@ -1,0 +1,9 @@
+{
+  "name": "Figma",
+  "source": "greenhouse",
+  "token": "figma",
+  "checked_at": "2026-11-06T18:37:46.712441+00:00",
+  "http_status": 200,
+  "jobs": 145,
+  "url": "https://boards-api.greenhouse.io/v1/boards/figma/jobs?content=true"
+}

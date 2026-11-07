@@ -1,0 +1,173 @@
+#!/usr/bin/env python3
+"""Verify candidate public boards, generate registry and dated HTTP-200 evidence."""
+
+import argparse
+import json
+import sys
+from pathlib import Path
+
+sys.path.insert(0, str(Path(__file__).resolve().parents[1] / 'src'))
+from jobhunt.feeds import parse
+from jobhunt.fetch import Fetcher, endpoint
+from jobhunt.ingest import now, runner_lock
+from jobhunt.settings import config, ensure_active, list_registry, registry
+
+ROOT = Path(__file__).resolve().parents[1]
+# Candidates only; none enters the active registry without live verification.
+CANDIDATES = {
+    'greenhouse': {
+        'Figma': 'figma',
+        'Datadog': 'datadog',
+        'MongoDB': 'mongodb',
+        'Cloudflare': 'cloudflare',
+        'Stripe': 'stripe',
+        'Ramp': 'ramp',
+        'Brex': 'brex',
+        'Robinhood': 'robinhood',
+        'Coinbase': 'coinbase',
+        'Gemini': 'gemini',
+        'Oscar Health': 'oscar',
+        'Flatiron Health': 'flatironhealth',
+        'Warby Parker': 'warbyparker',
+        'Etsy': 'etsy',
+        'Squarespace': 'squarespace',
+        'Peloton': 'peloton',
+        'Justworks': 'justworks',
+        'Cockroach Labs': 'cockroachlabs',
+        'Redis': 'redis',
+        'dbt Labs': 'dbtlabs',
+        'Databricks': 'databricks',
+        'Scale AI': 'scaleai',
+        'Anthropic': 'anthropic',
+        'Duolingo': 'duolingo',
+        'Gusto': 'gusto',
+        'Airtable': 'airtable',
+        'Notion': 'notion',
+        'Asana': 'asana',
+        'Pinterest': 'pinterest',
+        'Reddit': 'reddit',
+        'Affirm': 'affirm',
+        'Instacart': 'instacart',
+        'DoorDash': 'doordashusa',
+        'Chime': 'chime',
+        'Vimeo': 'vimeo',
+        'The Trade Desk': 'thetradedesk',
+        'Two Sigma': 'twosigma',
+        'Jane Street': 'janestreet',
+        'Hudson River Trading': 'hudsonrivertrading',
+    },
+    'lever': {
+        'Palantir': 'palantir',
+        'Plaid': 'plaid',
+        'Spotify': 'spotify',
+        'Veeva': 'veeva',
+        'Wealthfront': 'wealthfront',
+    },
+    'ashby': {
+        'OpenAI': 'openai',
+        'Vercel': 'vercel',
+        'Linear': 'linear',
+        'Retool': 'retool',
+        'Mercury': 'mercury',
+        'Perplexity': 'perplexity',
+        'Notion (Ashby)': 'notion',
+    },
+}
+
+
+def record_fixture(source, payload, evidence):
+    ensure_active(ROOT)
+    fixture = ROOT / 'tests' / 'fixtures' / f'{source}.json'
+    if not fixture.exists():
+        fixture.parent.mkdir(parents=True, exist_ok=True)
+        sample = payload[:2] if source == 'lever' else {'jobs': payload['jobs'][:2]}
+        fixture.write_text(json.dumps(sample, indent=2) + '\n')
+        (fixture.parent / f'{source}.provenance.json').write_text(json.dumps(evidence, indent=2) + '\n')
+
+
+def main():
+    args = argparse.ArgumentParser()
+    args.add_argument(
+        '--fixtures-only',
+        action='store_true',
+        help='record missing source fixtures from the verified registry',
+    )
+    options = args.parse_args()
+    ensure_active(ROOT)
+    report = {'verified': [], 'failed': []}
+    fetcher = Fetcher(config(ROOT))
+    with runner_lock(ROOT / config(ROOT)['database']) as acquired:
+        if not acquired:
+            raise SystemExit('another runner holds lock')
+        if options.fixtures_only:
+            for source in ('greenhouse', 'lever', 'ashby'):
+                ensure_active(ROOT)
+                board = next(board for board in registry(ROOT, source))
+                payload = fetcher.get(source, board['token'])
+                jobs = parse(source, payload)
+                evidence = dict(
+                    board,
+                    checked_at=now(),
+                    http_status=200,
+                    jobs=len(jobs),
+                    url=endpoint(source, board['token']),
+                )
+                record_fixture(source, payload, evidence)
+                print(f'recorded {source}: {board["name"]}', flush=True)
+            from jobhunt.db import audit, connect
+
+            ensure_active(ROOT)
+            with connect(ROOT / config(ROOT)['database']) as db:
+                audit(db, 'fixtures_recorded', 'sources')
+            return
+        for source, companies in CANDIDATES.items():
+            for name, token in companies.items():
+                ensure_active(ROOT)
+                row: dict[str, str | int] = dict(
+                    name=name, source=source, token=token, url=endpoint(source, token), checked_at=now()
+                )
+                try:
+                    payload = fetcher.get(source, token)
+                    jobs = parse(source, payload)
+                    row.update(http_status=200, jobs=len(jobs))
+                    report['verified'].append(row)
+                    record_fixture(source, payload, row)
+                    print(f'VERIFIED {source}/{token}: {len(jobs)}', flush=True)
+                except (OSError, ValueError, KeyError, TypeError) as exc:
+                    row['error'] = f'{type(exc).__name__}: {exc}'
+                    report['failed'].append(row)
+                    print(f'FAILED {source}/{token}: {exc}', flush=True)
+        output = ['# Generated by scripts/verify-boards from live HTTP 200 JSON responses.\n']
+        for row in report['verified']:
+            output.append(
+                '\n[[companies]]\n'
+                + ''.join(
+                    f'{key} = {json.dumps(row[key])}\n' for key in ('name', 'source', 'token', 'checked_at')
+                )
+            )
+        output.append('\n# Unverified/failed candidates; deliberately inactive:\n')
+        for row in report['failed']:
+            output.append(f'# {row["source"]}/{row["token"]} ({row["name"]}): {row["error"]}\n')
+        # Keep the hand-maintained public GitHub list entries.
+        output.extend(
+            '\n[[lists]]\nsource = ' + json.dumps(entry['source']) + '\n' for entry in list_registry(ROOT)
+        )
+        ensure_active(ROOT)
+        (ROOT / 'companies.toml').write_text(''.join(output))
+        (ROOT / 'verification.json').write_text(json.dumps(report, indent=2) + '\n')
+        # Operational registry changes are audited in the same local DB.
+        from jobhunt.db import audit, connect
+
+        ensure_active(ROOT)
+        with connect(ROOT / config(ROOT)['database']) as db:
+            audit(
+                db,
+                'registry_verified',
+                'sources',
+                json.dumps({'verified': len(report['verified']), 'failed': len(report['failed'])}),
+            )
+        print(f'DONE verified={len(report["verified"])} failed={len(report["failed"])}')
+
+
+if __name__ == '__main__':
+    main()

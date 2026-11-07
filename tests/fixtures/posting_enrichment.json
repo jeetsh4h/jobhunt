@@ -1,0 +1,5 @@
+{
+  "greenhouse": {"id": 123, "content": "<p>Summer 2027 software internship. Pay $40 - $60 per hour.</p>", "pay_input_ranges": [{"min_cents": 4000, "max_cents": 6000, "currency_type": "USD", "title": "Hourly pay", "blurb": ""}]},
+  "lever": {"id": "abc-123", "descriptionPlain": "Build software. This internship is Spring 2027.", "salaryRange": {"currency": "USD", "interval": "month", "min": 6920, "max": 10380}, "lists": [{"text": "Responsibilities", "content": "<li>Write code</li>"}]},
+  "ashby": {"jobs": [{"id": "other", "descriptionPlain": "Wrong job", "compensation": {"summaryComponents": [{"compensationType": "Salary", "currencyCode": "USD", "interval": "1 HOUR", "minValue": 999, "maxValue": 999}]}}, {"id": "def-456", "descriptionPlain": "Software internship Summer 2027. Available Locations London Available Terms Summer 2027", "compensation": {"compensationTiers": [{"components": [{"compensationType": "Salary", "currencyCode": "USD", "interval": "1 YEAR", "minValue": 104000, "maxValue": 145600}, {"compensationType": "Bonus", "currencyCode": "USD", "interval": "1 YEAR", "minValue": 2080000, "maxValue": 2080000}]}]}}]}
+}

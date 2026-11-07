@@ -1,0 +1,10 @@
+#!/bin/sh
+# Keep fresh matches visible even when one source or enrichment request fails.
+project_root=$(CDPATH= cd -- "$(dirname -- "$0")/.." && pwd) || exit 1
+cd "$project_root" || exit 1
+result=0
+"$project_root/bin/jobhunt" ingest || result=1
+"$project_root/bin/jobhunt" enrich --limit 80 || result=1
+"$project_root/bin/jobhunt" queue --limit 15 || result=1
+"$project_root/bin/jobhunt" digest --out || result=1
+exit "$result"

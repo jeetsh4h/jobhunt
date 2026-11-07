@@ -1,0 +1,85 @@
+{
+  "name": {
+    "first": "",
+    "middle": "",
+    "last": "",
+    "full_legal": "",
+    "preferred": ""
+  },
+  "email": "",
+  "contact": {
+    "phone": ""
+  },
+  "address": {
+    "street": "",
+    "unit": "",
+    "city": "",
+    "state": "",
+    "postal_code": "",
+    "country": ""
+  },
+  "links": {
+    "site": "",
+    "github": "",
+    "linkedin": ""
+  },
+  "education_current": {
+    "school": "",
+    "degree": "",
+    "major": "",
+    "concentration": "",
+    "start": "",
+    "end": "",
+    "gpa": ""
+  },
+  "education_previous": {
+    "school": "",
+    "degree": "",
+    "major": "",
+    "additional_credential": "",
+    "start": "",
+    "end": "",
+    "gpa_native": "",
+    "gpa_us_4_scale": ""
+  },
+  "gpa_rule": "",
+  "authorization": {
+    "authorized_to_work_us": "",
+    "internship_basis": "",
+    "sponsorship_for_internship": "",
+    "sponsorship_now_or_future": "",
+    "unscoped_question_policy": "",
+    "future_visa_type_when_listed": "",
+    "authorized_for_any_employer": "",
+    "h1b_needed_for_internship": "",
+    "current_visa_status_text": ""
+  },
+  "availability": {
+    "internship_start": "",
+    "internship_end": "",
+    "full_time_start": "",
+    "relocation": ""
+  },
+  "eeo": {
+    "gender": "",
+    "race_ethnicity": "",
+    "veteran": "",
+    "disability": ""
+  },
+  "compliance": {
+    "age_18_or_older": "",
+    "non_compete_or_restrictive_agreement": "",
+    "previously_employed_here": "",
+    "current_or_former_government_official": "",
+    "relative_of_government_official": "",
+    "relationship_with_client_partner_or_vendor_leader": "",
+    "referred_by_client_partner_or_vendor_leader": ""
+  },
+  "salary_expectation": "",
+  "how_did_you_hear": "",
+  "approved_free_text": {},
+  "personal": {
+    "favorite_junk_food": "",
+    "name_pronunciation": ""
+  }
+}

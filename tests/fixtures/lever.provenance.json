@@ -1,0 +1,9 @@
+{
+  "name": "Palantir",
+  "source": "lever",
+  "token": "palantir",
+  "checked_at": "2026-11-06T18:37:53.990979+00:00",
+  "http_status": 200,
+  "jobs": 305,
+  "url": "https://api.lever.co/v0/postings/palantir?mode=json"
+}

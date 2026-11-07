@@ -1,0 +1,42 @@
+[project]
+name = "jobhunt"
+version = "0.1.0"
+requires-python = ">=3.14"
+dependencies = []
+license = "MIT"
+license-files = ["LICENSE"]
+
+[project.scripts]
+jobhunt = "jobhunt.cli:main"
+
+[build-system]
+requires = []
+build-backend = "build_backend"
+backend-path = ["."]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+
+[dependency-groups]
+dev = [
+    "pytest>=9.2.0",
+    "ruff>=0.17.4",
+    "ty>=0.0.99",
+]
+
+[tool.ruff]
+line-length = 110
+target-version = "py314"
+extend-include = ["scripts/verify-boards"]
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I", "B", "UP", "SIM", "RUF"]
+
+[tool.ruff.format]
+quote-style = "single"
+
+[tool.ty.environment]
+python-version = "3.14"
+
+[tool.ty.src]
+include = ["src", "tests", "build_backend.py", "scripts/verify-boards"]

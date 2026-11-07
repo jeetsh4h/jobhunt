@@ -1,0 +1,16 @@
+#!/bin/sh
+# Install the daily fresh-watch timer as a systemd user unit for this checkout.
+set -eu
+root=$(CDPATH= cd -- "$(dirname -- "$0")/.." && pwd)
+case $root in
+    # systemd and sed give spaces, quotes, $, %, \, | and & special meaning; allow only plain characters.
+    *[!A-Za-z0-9._/+@,:=~-]*) echo "install-timer: move the checkout to a path of letters, digits and ._/+@,:=~- only: $root" >&2; exit 1 ;;
+esac
+units=${XDG_CONFIG_HOME:-$HOME/.config}/systemd/user
+mkdir -p "$units"
+sed "s|@JOBHUNT_ROOT@|$root|g" "$root/systemd/jobhunt.service" > "$units/jobhunt.service"
+cp "$root/systemd/jobhunt.timer" "$units/jobhunt.timer"
+systemctl --user daemon-reload
+systemctl --user enable jobhunt.timer
+systemctl --user restart jobhunt.timer
+systemctl --user list-timers jobhunt.timer
